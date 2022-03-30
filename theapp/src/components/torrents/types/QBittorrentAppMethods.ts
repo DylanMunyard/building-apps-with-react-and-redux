@@ -1,3 +1,5 @@
+// https://github.com/jesec/flood/blob/master/server/services/qBittorrent/clientRequestManager.ts
+
 // WRONG API documentation: dl_limit and up_limit are actually in bytes per second
 export interface QBittorrentAppPreferences {
   dht: boolean;

@@ -1,3 +1,5 @@
+// https://github.com/jesec/flood/blob/master/shared/schema/ClientConnectionSettings.ts
+
 import {literal, string, strictObject} from 'zod';
 import type {infer as zodInfer} from 'zod';
 

@@ -1,3 +1,5 @@
+// https://github.com/jesec/flood/blob/master/server/services/qBittorrent/clientRequestManager.ts
+
 export interface QBittorrentTransferInfo {
   // Global download rate (bytes/s)
   dl_info_speed: number;
