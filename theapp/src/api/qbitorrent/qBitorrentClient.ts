@@ -1,3 +1,5 @@
+// https://github.com/jesec/flood/blob/master/server/services/qBittorrent/clientRequestManager.ts
+
 import axios from 'axios';
 import FormData from 'form-data';
 
