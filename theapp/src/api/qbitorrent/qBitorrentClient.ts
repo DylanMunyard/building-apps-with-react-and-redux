@@ -255,12 +255,9 @@ class ClientRequestManager {
       );
     }
 
-    try {
-      await this.syncRids.mainData;
-    } catch (e) {
-      this.syncRids.mainData = Promise.resolve(0);
-      throw e;
-    }
+    await this.syncRids.mainData.catch(reason => {
+      throw reason;
+    })
 
     return this.syncStates.mainData;
   }

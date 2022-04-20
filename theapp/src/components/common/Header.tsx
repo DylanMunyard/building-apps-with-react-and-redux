@@ -8,7 +8,7 @@ const Header: React.FC = () => {
     return (
         <nav>
         <NavLink to="/" className={navStyle}>Home</NavLink>{" | "}
-            <NavLink to="/weather" className={navStyle}>Weather</NavLink>{" | "}
+            <NavLink to="/torrentpreferences" className={navStyle}>Preferences</NavLink>{" | "}
             <NavLink to="/about" className={navStyle}>About</NavLink>
         </nav>
     );

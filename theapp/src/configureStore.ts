@@ -1,3 +1,5 @@
+// https://medium.com/@resir014/redux-4-typescript-2-9-a-type-safe-approach-7f073917b803
+
 import { createStore, applyMiddleware, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createRootReducer, { ApplicationState } from "./store";
