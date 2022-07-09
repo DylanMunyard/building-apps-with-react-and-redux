@@ -58,7 +58,7 @@ export const loadTorrents = (): ThunkAction<void, TorrentState, Record<string, n
             client: "qBittorrent",
             username: process.env.API_USERNAME || "",
             password: process.env.API_PASSWORD || "",
-            url: process.env.API_URL || "http://192.168.86.210:8080",
+            url: process.env.API_URL || "",
             type: "web",
             version: 1
         };

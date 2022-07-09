@@ -60,12 +60,13 @@ class ClientRequestManager {
   async authenticate(connectionSettings = this.connectionSettings): Promise<string | undefined> {
     const {url, username, password} = connectionSettings;
 
+    axios.defaults.withCredentials = true;
     return axios
       .get(`${url}/api/v2/auth/login`, {
         params: {
           username,
           password,
-        },
+        }
       })
       .then((res) => {
         const cookies = res.headers['set-cookie'];
