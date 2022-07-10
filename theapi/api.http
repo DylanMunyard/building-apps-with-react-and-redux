@@ -1,5 +1,0 @@
-POST http://localhost:5250/WeatherForecast
-Content-Type: application/json
-
-{"id":1,"date":"2022-02-07T16:15:36.2806681+10:00","temperatureC":23,"temperatureF":73,"summary":"Scorching"}
-###
