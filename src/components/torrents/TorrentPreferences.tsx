@@ -34,12 +34,29 @@ const setPreferencesFromState = (preferences?: TorrentPreferencesState) : Partia
 
 const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error, loading, ...state}) => {
     const [preferences, setPreferences] = useState(setPreferencesFromState(state.preferences));
+    const [errors, setErrors] = useState(error);
 
     const navigate = useNavigate();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (!formIsValid()) {
+            toast.error("Preferences not updated");
+            return;
+        }
         update(preferences);
+    }
+
+    const formIsValid = () : boolean => {
+        const { listen_port, max_uploads } = preferences;
+        let validationError = "";
+
+        if ((listen_port ?? -1) < 1) { validationError = "Make listen_port > 0"; } 
+        if ((max_uploads ?? -1) < 1) { validationError = "Make global upload slots > 0"; } 
+
+        setErrors(validationError);
+
+        return validationError.length === 0;
     }
 
     const useRandomPort = () => {
@@ -81,11 +98,11 @@ const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error,
     });
 
     return (<>
-        {error && 
+        {errors && 
             <>
                 <div className="alert alert-danger" role="alert">
                     <h3>Whoops!</h3>
-                    {error}
+                    {errors}
                 </div>
             </>
          }

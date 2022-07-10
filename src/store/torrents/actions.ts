@@ -6,6 +6,7 @@ import qBitorrentClient from "api/qbitorrent/qBitorrentClient";
 import type {QBittorrentConnectionSettings} from '@shared/schema/ClientConnectionSettings';
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { QBittorrentMainData } from "api/qbitorrent/types/QBittorrentSyncMethods";
+import { toast } from "react-toastify";
 
 export const createTorrent : ActionCreator<CreateTorrent> = (torrent: string) => ({
     type: TorrentActionTypes.CREATE_TORRENT,
@@ -118,7 +119,7 @@ export const updatePreferences = (preferences: Partial<TorrentPreferencesState>)
             dispatch(savePreferencesSuccess());
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            console.error(error.response.data);
+            toast.error("Preferences not updated");
             if (error.response.data)  {
                 dispatch(savePreferencesFailed(error.response.data));
             } else if (axios.isAxiosError(error)) {
