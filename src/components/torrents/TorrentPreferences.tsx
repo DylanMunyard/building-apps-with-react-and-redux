@@ -6,6 +6,8 @@ import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import * as torrentActions from "../../store/torrents/actions";
 import { TorrentPreferencesState, TorrentState } from "../../store/torrents/types"; 
+import { toast } from "react-toastify";
+
 interface DispatchProps {
     sync: () => void,
     update: (preferences: Partial<TorrentPreferencesState>) => void,
@@ -73,6 +75,7 @@ const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error,
     useEffect(() => {
         if (state.preferences?.saved) {
             saved();
+            toast.success("Preferences updated");
             navigate("/");
         }
     });
@@ -80,8 +83,10 @@ const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error,
     return (<>
         {error && 
             <>
-                <h3>Unable to load preferences!</h3>
-                <p>{error}</p>
+                <div className="alert alert-danger" role="alert">
+                    <h3>Whoops!</h3>
+                    {error}
+                </div>
             </>
          }
          {loading && 
@@ -95,7 +100,7 @@ const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error,
                 <div className="mb-3 row g-2">
                     <div className="col-md">
                         <div className="form-floating">
-                            <input type="number" min={1} max={65535} onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(event, "listen_port"  )} value={formatNumber(preferences.listen_port)} className="form-control" id="listeningPortNumber" placeholder="Suggest making it > 8900" />
+                            <input type="number" min={-2} max={65535} onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(event, "listen_port"  )} value={formatNumber(preferences.listen_port)} className="form-control" id="listeningPortNumber" placeholder="Suggest making it > 8900" />
                             <label htmlFor="listeningPortNumber">Port used for incoming connections</label>
                         </div>
                     </div>
@@ -156,7 +161,7 @@ const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error,
                         </div>
                     </div>
                     <div className="col-2">
-                        <input onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(event, "max_uploads"  )} type="number" min={1} className="form-control" disabled={!preferences.has_global_uploads} value={!preferences.has_global_uploads ? "" : formatNumber(preferences.max_uploads)} id="numberGlobalUploadSpots" />
+                        <input onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(event, "max_uploads"  )} type="number" min={-2} className="form-control" disabled={!preferences.has_global_uploads} value={!preferences.has_global_uploads ? "" : formatNumber(preferences.max_uploads)} id="numberGlobalUploadSpots" />
                         <label htmlFor="numberGlobalUploadSpots" className="visually-hidden">Enter global maximum number of upload slots</label>
                     </div>
                 </div>

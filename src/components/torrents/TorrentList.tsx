@@ -30,8 +30,10 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
         <h1>Torrents</h1>
         {error && 
             <>
-                <h3>Unable to load torrents!</h3>
-                <p>{error}</p>
+                <div className="alert alert-danger" role="alert">
+                    <h3>Whoops!</h3>
+                    {error}
+                </div>
             </>
          }
          {loading && 

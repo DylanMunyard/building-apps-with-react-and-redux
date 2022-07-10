@@ -12,8 +12,8 @@ const path = require("path");
 */ 
 const mockData = require("./mockData");
 
-const { mainData } = mockData;
-const data = JSON.stringify({mainData});
+const { mainData, preferences } = mockData;
+const data = JSON.stringify({mainData, preferences});
 const filepath = path.join(__dirname, "db.json");
 
 fs.writeFile(filepath, data, function(err) {

@@ -5,6 +5,8 @@ import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 import TorrentList from "./torrents/TorrentList";
 import TorrentPreferences from "./torrents/TorrentPreferences";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
     return (
@@ -17,6 +19,7 @@ const App: React.FC = () => {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
+                <ToastContainer autoClose={3000} hideProgressBar />
             </div>
         </div>
     )

@@ -110,8 +110,9 @@ class ClientRequestManager {
   }
 
   async setAppPreferences(preferences: Partial<QBittorrentAppPreferences>): Promise<void> {
+    const body = this.apiBase.startsWith("http://localhost:3001") ? preferences : `json=${JSON.stringify(preferences)}`;
     return axios
-      .post(`${this.apiBase}/app/setPreferences`, `json=${JSON.stringify(preferences)}`, {
+      .post(`${this.apiBase}/app/setPreferences`, body, {
         headers: await this.getRequestHeaders(),
       })
       .then(() => {

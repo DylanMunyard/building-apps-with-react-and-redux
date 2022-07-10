@@ -116,12 +116,15 @@ export const updatePreferences = (preferences: Partial<TorrentPreferencesState>)
         try {
             await qClient.setAppPreferences(preferences);
             dispatch(savePreferencesSuccess());
-        } catch (error) {
-            console.error(error);
-            if (axios.isAxiosError(error))  {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.error(error.response.data);
+            if (error.response.data)  {
+                dispatch(savePreferencesFailed(error.response.data));
+            } else if (axios.isAxiosError(error)) {
                 dispatch(savePreferencesFailed(error.message));
             } else {
-                dispatch(savePreferencesFailed(error));
+                dispatch(savePreferencesFailed("Preferences not updated! Try again."));
             }
         }
     }

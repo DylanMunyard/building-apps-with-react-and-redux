@@ -36,23 +36,32 @@ server.use(function(req, res, next) {
 
 // Declaring custom routes below. Add custom routes before JSON Server router
 
-// Add createdAt to all POSTS
-server.use((req, res, next) => {
-  if (req.method === "POST") {
-    req.body.createdAt = Date.now();
+server.post("/api/v2/app/setPreferences", function(req, res, next) {
+  console.warn(req.body);
+  const error = validatePrefs(req.body);
+  if (error) {
+    res.status(400).send(error);
+  } else {
+    next();
   }
-  // Continue to JSON Server router
-  next();
 });
+
+function validatePrefs(prefs) {
+  if (parseInt(prefs.listen_port, 10) < 1) return "Make listen port > 0";
+  if (parseInt(prefs.max_uploads, 10) < 1) return "Make global upload spots > 0";
+  return "";
+}
 
 // Custom routes
 server.get('/api/v2/auth/login', (_, res) => {
-  res.cookie('SID', 'faDaV5fsHvxGLTvv37uA5ZPOTmBrx7Am', { httpOnly: true, path: '/', sameSite: "strict" });
+  res.cookie('SID', 'faDaV5fsHvxGLTvv37uA5ZPOTmBrx7Am', { path: '/', sameSite: "strict" });
   res.json({});
 })
 
 server.use(jsonServer.rewriter({
-  "/api/v2/sync/maindata*": '/maindata$1'
+  "/api/v2/sync/maindata*": '/maindata$1',
+  "/api/v2/app/preferences*": '/preferences$1',
+  "/api/v2/app/setPreferences*": '/preferences$1'
 }));
 
 // Use default router
