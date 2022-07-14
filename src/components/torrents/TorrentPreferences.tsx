@@ -32,7 +32,7 @@ const setPreferencesFromState = (preferences?: TorrentPreferencesState) : Partia
     };
 }
 
-const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error, loading, ...state}) => {
+export const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved, error, loading, ...state}) => {
     const [preferences, setPreferences] = useState(setPreferencesFromState(state.preferences));
     const [errors, setErrors] = useState(error);
 

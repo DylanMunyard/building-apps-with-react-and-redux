@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sets submit button label 'Saving...' when saving is true 1`] = `
+Array [
+  "",
+  <p>
+    Preferences are loading ... 
+  </p>,
+  <form
+    onSubmit={[Function]}
+  >
+    <fieldset>
+      <legend>
+        Listening Port
+      </legend>
+      <div
+        className="mb-3 row g-2"
+      >
+        <div
+          className="col-md"
+        >
+          <div
+            className="form-floating"
+          >
+            <input
+              className="form-control"
+              id="listeningPortNumber"
+              max={65535}
+              min={-2}
+              onChange={[Function]}
+              placeholder="Suggest making it > 8900"
+              type="number"
+              value={8999}
+            />
+            <label
+              htmlFor="listeningPortNumber"
+            >
+              Port used for incoming connections
+            </label>
+          </div>
+        </div>
+        <div
+          className="mb-3 col-md"
+        >
+          <button
+            className="btn btn-primary"
+            onClick={[Function]}
+            type="button"
+          >
+            Random
+          </button>
+        </div>
+      </div>
+      <div
+        className="mb-3 form-check"
+      >
+        <input
+          checked={true}
+          className="form-check-input"
+          id="useNatOrUpnp"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label
+          className="form-check-label"
+          htmlFor="useNatOrUpnp"
+        >
+          Use UPnP / NAT-PMP port forwarding from my router
+        </label>
+      </div>
+      <div
+        className="mb-3 form-check"
+      >
+        <input
+          checked={false}
+          className="form-check-input"
+          id="useDiffPortStartup"
+          onChange={[Function]}
+          type="checkbox"
+          value=""
+        />
+        <label
+          className="form-check-label"
+          htmlFor="useDiffPortStartup"
+        >
+          Use different port on each startup
+        </label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>
+        Connection Limits
+      </legend>
+      <div
+        className="mb-3 row g-2"
+      >
+        <div
+          className="col-6"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              id="globalNumberConnections"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="globalNumberConnections"
+            >
+              Global maximum number of connections:
+            </label>
+          </div>
+        </div>
+        <div
+          className="col-2"
+        >
+          <input
+            className="form-control"
+            disabled={true}
+            id="numberGlobalNumberConnections"
+            min={1}
+            onChange={[Function]}
+            type="number"
+            value=""
+          />
+          <label
+            className="visually-hidden"
+            htmlFor="numberGlobalNumberConnections"
+          >
+            Enter global maximum number of connections
+          </label>
+        </div>
+      </div>
+      <div
+        className="mb-3 row g-2"
+      >
+        <div
+          className="col-6"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              id="numberConnectionsPerTorrent"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="numberConnectionsPerTorrent"
+            >
+              Maximum number of connections per torrent
+            </label>
+          </div>
+        </div>
+        <div
+          className="col-2"
+        >
+          <input
+            className="form-control"
+            disabled={true}
+            id="numberConnectionsPerTorrent"
+            min={1}
+            onChange={[Function]}
+            type="number"
+            value=""
+          />
+          <label
+            className="visually-hidden"
+            htmlFor="numberConnectionsPerTorrent"
+          >
+            Enter maximum number of connections per torrent
+          </label>
+        </div>
+      </div>
+      <div
+        className="mb-3 row g-2"
+      >
+        <div
+          className="col-6"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              id="globalUploadSpots"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="globalUploadSpots"
+            >
+              Global maximum number of upload slots
+            </label>
+          </div>
+        </div>
+        <div
+          className="col-2"
+        >
+          <input
+            className="form-control"
+            disabled={false}
+            id="numberGlobalUploadSpots"
+            min={-2}
+            onChange={[Function]}
+            type="number"
+            value={24}
+          />
+          <label
+            className="visually-hidden"
+            htmlFor="numberGlobalUploadSpots"
+          >
+            Enter global maximum number of upload slots
+          </label>
+        </div>
+      </div>
+      <div
+        className="mb-3 row g-2"
+      >
+        <div
+          className="col-6"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              id="uploadSlotsPerTorrent"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="uploadSlotsPerTorrent"
+            >
+              Maximum number of upload slots per torrent
+            </label>
+          </div>
+        </div>
+        <div
+          className="col-2"
+        >
+          <input
+            className="form-control"
+            disabled={true}
+            id="numberUploadSlotsPerTorrent"
+            min={1}
+            onChange={[Function]}
+            type="number"
+            value=""
+          />
+          <label
+            className="visually-hidden"
+            htmlFor="numberUploadSlotsPerTorrent"
+          >
+            Enter maximum number of upload slots per torrent
+          </label>
+        </div>
+      </div>
+    </fieldset>
+    <button
+      className="btn btn-primary"
+      type="submit"
+    >
+      Save
+    </button>
+  </form>,
+]
+`;

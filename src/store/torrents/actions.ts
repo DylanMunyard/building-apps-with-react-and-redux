@@ -1,11 +1,11 @@
-import { QBittorrentAppPreferences } from 'api/qbitorrent/types/QBittorrentAppMethods';
+import { QBittorrentAppPreferences } from '../../api/qbitorrent/types/QBittorrentAppMethods';
 import axios from "axios";
 import { AnyAction, ActionCreator } from "redux";
 import {TorrentState, TorrentPreferencesState, CreateTorrent, ListTorrentsSuccess, ListTorrentsFailed, FetchPreferencesSuccess, FetchPreferencesFailed, SavePreferencesSuccess, SavePreferencesFailed, SavePreferencesDone, TorrentActionTypes } from "./types";
-import qBitorrentClient from "api/qbitorrent/qBitorrentClient";
+import qBitorrentClient from "../../api/qbitorrent/qBitorrentClient";
 import type {QBittorrentConnectionSettings} from '@shared/schema/ClientConnectionSettings';
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { QBittorrentMainData } from "api/qbitorrent/types/QBittorrentSyncMethods";
+import { QBittorrentMainData } from "../../api/qbitorrent/types/QBittorrentSyncMethods";
 import { toast } from "react-toastify";
 
 export const createTorrent : ActionCreator<CreateTorrent> = (torrent: string) => ({

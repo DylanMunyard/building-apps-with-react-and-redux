@@ -1,5 +1,5 @@
-import { QBittorrentAppPreferences } from 'api/qbitorrent/types/QBittorrentAppMethods';
-import { QBittorrentTorrentInfo } from "api/qbitorrent/types/QBittorrentTorrentsMethods"
+import { QBittorrentAppPreferences } from '../../api/qbitorrent/types/QBittorrentAppMethods';
+import { QBittorrentTorrentInfo } from "../../api/qbitorrent/types/QBittorrentTorrentsMethods"
 import { Action } from "redux"
 
 export interface TorrentState extends ApiCall {
