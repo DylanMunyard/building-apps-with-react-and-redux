@@ -3,9 +3,6 @@
 exports[`sets submit button label 'Saving...' when saving is true 1`] = `
 Array [
   "",
-  <p>
-    Preferences are loading ... 
-  </p>,
   <form
     onSubmit={[Function]}
   >

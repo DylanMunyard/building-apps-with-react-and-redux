@@ -108,7 +108,9 @@ export const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved,
          }
          {loading && 
             <>
-                <p>Preferences are loading ... </p>
+                <div className="alert alert-info" role="alert">
+                    Preferences are loading ...
+                </div>
             </>
         }
         <form onSubmit={handleSubmit}>
