@@ -1,11 +1,11 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import renderer, { act } from "react-test-renderer";
+import renderer from "react-test-renderer";
 import {TorrentPreferencesPage} from './TorrentPreferences';
 import {mainData, preferences} from '../../../tools/mockData.js';
 import {QBittorrentTorrentInfo} from '../../api/qbitorrent/types/QBittorrentTorrentsMethods';
 
-it("sets submit button label 'Saving...' when saving is true", () => {
+it("renders a torrent preferences edit form", () => {
     const torrents : {
         [hash: string]: QBittorrentTorrentInfo;
     } = {};
