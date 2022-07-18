@@ -39,8 +39,9 @@ export const fetchPreferencesFailed : ActionCreator<FetchPreferencesFailed> = (r
     payload: { reason }
 })
 
-export const savePreferencesSuccess : ActionCreator<SavePreferencesSuccess> = () => ({
-    type: TorrentActionTypes.SAVE_PREFERENCES_SUCCESS
+export const savePreferencesSuccess : ActionCreator<SavePreferencesSuccess> = (preferences: Partial<TorrentPreferencesState>) => ({
+    type: TorrentActionTypes.SAVE_PREFERENCES_SUCCESS,
+    payload: { preferences }
 })
 
 export const savePreferencesFailed : ActionCreator<SavePreferencesFailed> = (reason: string) => ({
@@ -116,7 +117,7 @@ export const updatePreferences = (preferences: Partial<TorrentPreferencesState>)
         const qClient = new qBitorrentClient(qSettings);
         try {
             await qClient.setAppPreferences(preferences);
-            dispatch(savePreferencesSuccess());
+            dispatch(savePreferencesSuccess(preferences));
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error("Preferences not updated");

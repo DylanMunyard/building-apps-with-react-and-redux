@@ -13,10 +13,10 @@ export interface ConnectedReduxProps<S extends Action> {
     dispatch: Dispatch<S>
 }
 
-const rootReducer = (routerState: Reducer<RouterState, AnyAction>,) : Reducer<ApplicationState> =>  
-combineReducers<ApplicationState>({
-    router: routerState,
-    torrent: torrentReducer
-});
+const rootReducer = (routerState: Reducer<RouterState, AnyAction>) : Reducer<ApplicationState> =>  
+    combineReducers<ApplicationState>({
+        router: routerState,
+        torrent: torrentReducer
+    });
 
 export default rootReducer;

@@ -10,7 +10,7 @@ const middleware = [thunk];
 const mockStore = configureMockStore<types.TorrentState, ThunkDispatch<types.TorrentState, Record<string, never>, AnyAction>>(middleware);
 
 describe("async actions", () => {
-    it('should create ACTION and THING when loading preferences', async () => {
+    it('should create FETCH_PREFERENCES_SUCCESS when loading preferences', async () => {
         ClientRequestManager.prototype.authenticate = jest.fn(() => Promise.resolve("COOKIE_MONSTER"));
         ClientRequestManager.prototype.getAppPreferences = jest.fn(() => Promise.resolve(preferences));
 
@@ -25,10 +25,11 @@ describe("async actions", () => {
 describe("savePreferencesSuccess", () => {
     it('should create a SAVE_PREFERENCES_SUCCESS action', () => {
         const expectedAction = {
-            type: types.TorrentActionTypes.SAVE_PREFERENCES_SUCCESS
+            type: types.TorrentActionTypes.SAVE_PREFERENCES_SUCCESS,
+            payload: { preferences: { listen_port: 1999 } }
         };
 
-        const action = actions.savePreferencesSuccess();
+        const action = actions.savePreferencesSuccess({ listen_port: 1999 });
 
         expect(action).toEqual(expectedAction);
     });

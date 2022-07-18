@@ -22,7 +22,7 @@ const reducer: Reducer<TorrentState> = (state: TorrentState = initialState, acti
             return { ...state, error: action.payload.reason, loading: false };
         }
         case TorrentActionTypes.SAVE_PREFERENCES_SUCCESS: {
-            return { ...state, preferences: { ...state.preferences, saved: true }, error: "", loading: false };
+            return { ...state, preferences: { ...state.preferences, ...action.payload.preferences, saved: true }, error: "", loading: false };
         }
         case TorrentActionTypes.SAVE_PREFERENCES_FAILED: {
             return { ...state, error: action.payload.reason, loading: false };
