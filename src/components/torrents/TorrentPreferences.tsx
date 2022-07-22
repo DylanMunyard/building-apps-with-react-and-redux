@@ -7,6 +7,7 @@ import { ApplicationState } from "../../store";
 import * as torrentActions from "../../store/torrents/actions";
 import { TorrentPreferencesState, TorrentState } from "../../store/torrents/types"; 
 import { toast } from "react-toastify";
+import Loading from "../common/Loading";
 
 interface DispatchProps {
     sync: () => void,
@@ -107,11 +108,7 @@ export const TorrentPreferencesPage: React.FC<AllProps> = ({sync, update, saved,
             </>
          }
          {loading && 
-            <>
-                <div className="alert alert-info" role="alert">
-                    Preferences are loading ...
-                </div>
-            </>
+            <Loading text="Loading preferences" />
         }
         <form onSubmit={handleSubmit}>
             <fieldset>

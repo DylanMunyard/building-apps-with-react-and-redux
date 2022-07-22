@@ -5,7 +5,9 @@ import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import * as torrentActions from "../../store/torrents/actions";
 import { TorrentState } from "../../store/torrents/types";
-import { DisplayBytes } from "api/helper"
+import { DisplayBytes } from "api/helper";
+import { Link } from "react-router-dom";
+import Loading from "../common/Loading";
 
 interface DispatchProps {
     sync: () => void
@@ -23,49 +25,51 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
         } 
     }, []);
 
-    console.log(torrents);
-
     return (
-    <>
-        <h1>Torrents</h1>
-        {error && 
-            <>
-                <div className="alert alert-danger" role="alert">
-                    <h3>Whoops!</h3>
-                    {error}
-                </div>
-            </>
-         }
-         {loading && 
-            <>
-                <p>Torrents are loading ... </p>
-            </>
-        }
-        {num_torrents > 0 && 
-            <table className="table table-condensed">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Uploaded</th>
-                    <th>Downloaded</th>
-                </tr>
-            </thead>
-            <tbody>
-                {Object.keys(torrents).sort((a: string, b: string) => {
-                    return torrents[a].name.localeCompare(torrents[b].name);
-                }).map((t: string) => {
-                    return <tr key={t}>
-                        <td>{torrents[t].name}</td>
-                        <td>{DisplayBytes(torrents[t].size)}</td>
-                        <td>{DisplayBytes(torrents[t].uploaded)}</td>
-                        <td>{DisplayBytes(torrents[t].downloaded)}</td>
+        <div className="col">
+            <h1>Torrents</h1>
+
+            <form className="d-flex" role="search">
+                <input className="form-control me-2" type="filter" placeholder="Filter" aria-label="Filter" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
+            {error && 
+                <>
+                    <div className="alert alert-danger" role="alert">
+                        <h3>Whoops!</h3>
+                        {error}
+                    </div>
+                </>
+            }
+            {loading && 
+                <Loading text="Loading torrents" />
+            }
+            {num_torrents > 0 && 
+                <table className="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Uploaded</th>
+                        <th>Downloaded</th>
                     </tr>
-                })}
-            </tbody>
-            </table>
-        }
-    </>
+                </thead>
+                <tbody>
+                    {Object.keys(torrents).sort((a: string, b: string) => {
+                        return torrents[a].name.localeCompare(torrents[b].name);
+                    }).map((t: string) => {
+                        return <tr key={t}>
+                            <td><Link to={`/torrents/${t}`}>{torrents[t].name}</Link></td>
+                            <td>{DisplayBytes(torrents[t].size)}</td>
+                            <td>{DisplayBytes(torrents[t].uploaded)}</td>
+                            <td>{DisplayBytes(torrents[t].downloaded)}</td>
+                        </tr>
+                    })}
+                </tbody>
+                </table>
+            }
+        </div>
     )
 }
 
