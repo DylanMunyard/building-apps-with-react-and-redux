@@ -11,15 +11,6 @@ module.exports = {
     mode: "production",
     entry: './src/index.tsx',
     devtool: 'source-map',
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       plugins: [new TsconfigPathsPlugin()],
@@ -50,6 +41,7 @@ module.exports = {
       new HtmlWebpackPlugin({
         template: "src/index.html",
         favicon: "src/favicon.ico",
+        publicPath: "/",
         minify: {
           // see https://github.com/kangax/html-minifier#options-quick-reference
           removeComments: true,

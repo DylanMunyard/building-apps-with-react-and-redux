@@ -8,15 +8,6 @@ process.env.NODE_ENV="development";
 module.exports = {
     entry: './src/index.tsx',
     devtool: 'inline-source-map',
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       plugins: [new TsconfigPathsPlugin()],
@@ -41,6 +32,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         template: "src/index.html",
+        publicPath: "/",
         favicon: "src/favicon.ico"
       })
     ],
