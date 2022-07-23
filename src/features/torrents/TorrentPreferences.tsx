@@ -7,7 +7,7 @@ import { ApplicationState } from "../../store";
 import * as torrentActions from "../../store/torrents/actions";
 import { TorrentPreferencesState, TorrentState } from "../../store/torrents/types"; 
 import { toast } from "react-toastify";
-import Loading from "../common/Loading";
+import Loading from "../../components/loading";
 
 interface DispatchProps {
     sync: () => void,

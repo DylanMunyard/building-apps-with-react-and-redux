@@ -7,7 +7,7 @@ import * as torrentActions from "../../store/torrents/actions";
 import { TorrentState } from "../../store/torrents/types";
 import { DisplayBytes } from "api/helper";
 import { Link } from "react-router-dom";
-import Loading from "../common/Loading";
+import Loading from "../../components/loading";
 import { QBittorrentTorrentInfo } from "api/qbitorrent/types/QBittorrentTorrentsMethods";
 
 interface DispatchProps {

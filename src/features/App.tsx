@@ -1,7 +1,7 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
 import AboutPage from "./about/AboutPage";
-import Header from "./common/Header";
+import Header from "../components/header";
 import PageNotFound from "./PageNotFound";
 import TorrentList from "./torrents/TorrentList";
 import TorrentPage from "./torrents/TorrentPage";
