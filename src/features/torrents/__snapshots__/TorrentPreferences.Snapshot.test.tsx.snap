@@ -2,6 +2,9 @@
 
 exports[`renders a torrent preferences edit form 1`] = `
 Array [
+  <h1>
+    Preferences
+  </h1>,
   "",
   <form
     onSubmit={[Function]}
