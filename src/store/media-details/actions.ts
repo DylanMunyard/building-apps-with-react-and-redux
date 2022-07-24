@@ -1,6 +1,6 @@
 import { AnyAction, ActionCreator } from "redux";
 import {MediaDetailsState, LookupTvSeriesFailed, LookupTvSeriesSuccess, MediaDetailsActionTypes } from "./types";
-import SonarrAPI, { SeriesLookup } from "sonarr-api"
+import SonarrAPI, { SeriesLookup } from "../../api/sonarr"
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 export const lookupTvSeriesSuccess : ActionCreator<LookupTvSeriesSuccess> = (results: SeriesLookup[]) => ({
@@ -17,12 +17,11 @@ export const lookupTvSeries = (series: string): ThunkAction<void, MediaDetailsSt
     // Invoke API
     return async (dispatch: ThunkDispatch<MediaDetailsState, Record<string, never>, AnyAction>) => {
         const sonarrApi = new SonarrAPI({
-                hostname: process.env.SONARR_API_URL ?? "",
-                apiKey: process.env.SONARR_API_KEY ?? "",
-                port: 443
+            url: process.env.SONARR_API_URL ?? "",
+            apiKey: process.env.SONARR_API_KEY ?? ""
         });
         try {
-            const response = await sonarrApi.get<SeriesLookup[]>("series/lookup", { "term": series });
+            const response = await sonarrApi.get<SeriesLookup[]>("/series/lookup", { "term": series });
             dispatch(lookupTvSeriesSuccess(response));
         } catch (error) {
             dispatch(lookupTvSeriesFailed(error));

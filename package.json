@@ -33,7 +33,6 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-first-history": "^5.0.8",
     "redux-thunk": "^2.4.1",
-    "sonarr-api": "^0.2.0",
     "zod": "^3.14.3"
   },
   "devDependencies": {

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ptn, { Tv } from 'parse-torrent-name';
-import fanArt from "../../assets//media-details/fanart.png";
 import { ApplicationState } from "../../store";
-import { SeriesLookup } from "sonarr-api"
+import { SeriesLookup } from "../../api/sonarr"
 import * as mediaDetailsActions from "../../store/media-details/actions";
 import { MediaDetailsState } from "../../store/media-details/types";
 import Loading from "components/loading";import { connect } from "react-redux";
@@ -14,7 +13,7 @@ interface DispatchProps {
 }
 
 type Props = {
-    name: string,
+    mediaName: string,
     tvlookupresults: SeriesLookup[],
     error: string,
     loading: boolean
@@ -22,9 +21,16 @@ type Props = {
 
 type AllProps = DispatchProps & Props;
 
-const MediaDetails: React.FC<AllProps> = ({ lookup, error, loading, name, tvlookupresults }) => {
-    const details = ptn(name);
+const MediaDetails: React.FC<AllProps> = ({ lookup, error, loading, mediaName, tvlookupresults }) => {
+    const details = ptn(mediaName);
     const [errors, setErrors] = useState(error);
+    const [mediaDetails, setMediaDetails] = useState<Partial<SeriesLookup>>({});
+
+    useEffect(() => {
+        if (!tvlookupresults.length) return;
+
+        setMediaDetails(tvlookupresults[0]);
+    }, [tvlookupresults.length]);
 
     useEffect(() => {
         setErrors(error);
@@ -54,32 +60,35 @@ const MediaDetails: React.FC<AllProps> = ({ lookup, error, loading, name, tvlook
     }
 
     useEffect(() => {
-        if (!tv.title) return;
-        
+        if (!details.title) return;
+        console.info(details);
+
         lookup(tv.title);
-    }, [tv.title]);
+    }, [details.title]);
 
     return (<>
         {errors &&
-        <div className="alert alert-danger" role="alert">
-            <h3>Whoops There It Is!</h3>
-            {errors}
+        <div className="card text-bg-danger mb-3" style={{width: "18rem"}}>
+            <div className="card-body">
+                <h5 className="card-title">Whoops</h5>
+                <p className="card-text">{errors}</p>
+            </div>      
         </div>}
 
-        {loading &&
+        {tv.season && loading &&
         <div className="card" style={{width: "18rem"}}>
             <div className="card-body">
                 <Loading text="TV details loading" />
             </div>
         </div>}
 
-        {!loading &&  tv.season && 
+        {!loading &&  mediaDetails && tv.season && 
         <div className="card" style={{width: "18rem"}}>
-            <img src={fanArt} className="card-img-top" alt={tv.title} />      
+            <img src={mediaDetails.images ? mediaDetails.images[0].url : ""} className="card-img-top" alt={mediaDetails.title} />      
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
-                <p className="card-text">{tv.title}</p>
-                <a href="#" className="btn btn-primary">TheTVDB.com</a>
+                <p className="card-text">{mediaDetails.overview}</p>
+                <a href={`https://thetvdb.com/index.php?tab=series&id=${mediaDetails.tvdbId}`} className="btn btn-primary">TheTVDB.com</a>
             </div>
         </div>}
     </>);
@@ -93,10 +102,10 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<MediaDetailsState, Record<st
     }
   }
 
-const mapStateToProps = (state: ApplicationState) : Props => {
+const mapStateToProps = (state: ApplicationState, props: { mediaName: string }) : Props => {
     return { 
         ...state.mediadetails,
-        name: ""
+        mediaName: props.mediaName
     }
 }
 

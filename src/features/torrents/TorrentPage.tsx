@@ -74,7 +74,7 @@ const TorrentPage : React.FC<AllProps> = ({ sync, num_torrents, loading, error, 
             <div className="mb-3">
                 Downloaded: {DisplayBytes(torrent.downloaded)}
             </div>
-            <MediaDetails name={torrent.name} />
+            <MediaDetails mediaName={torrent.name} />
         </>}
     </div>);
 };
