@@ -3,10 +3,13 @@ import { RouterState } from "redux-first-history";
 
 import { TorrentState } from "./torrents/types";
 import torrentReducer from "./torrents/reducer";
+import { MediaDetailsState } from "./media-details/types";
+import mediaDetailsReducer from "./media-details/reducer";
 
 export interface ApplicationState {
     router: RouterState,
-    torrent: TorrentState
+    torrent: TorrentState,
+    mediadetails: MediaDetailsState
 }
 
 export interface ConnectedReduxProps<S extends Action> {
@@ -16,7 +19,8 @@ export interface ConnectedReduxProps<S extends Action> {
 const rootReducer = (routerState: Reducer<RouterState, AnyAction>) : Reducer<ApplicationState> =>  
     combineReducers<ApplicationState>({
         router: routerState,
-        torrent: torrentReducer
+        torrent: torrentReducer,
+        mediadetails: mediaDetailsReducer
     });
 
 export default rootReducer;
