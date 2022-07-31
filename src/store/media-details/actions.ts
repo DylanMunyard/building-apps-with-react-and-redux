@@ -2,6 +2,7 @@ import { AnyAction, ActionCreator } from "redux";
 import {MediaDetailsState, LookupTvSeriesFailed, LookupTvSeriesSuccess, MediaDetailsActionTypes } from "./types";
 import SonarrAPI, { SeriesLookup } from "../../api/sonarr"
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import axios from "axios";
 
 export const lookupTvSeriesSuccess : ActionCreator<LookupTvSeriesSuccess> = (results: SeriesLookup[]) => ({
     type: MediaDetailsActionTypes.LOOKUP_TV_SERIES_SUCCESS, 
@@ -24,7 +25,11 @@ export const lookupTvSeries = (series: string): ThunkAction<void, MediaDetailsSt
             const response = await sonarrApi.get<SeriesLookup[]>("/series/lookup", { "term": series });
             dispatch(lookupTvSeriesSuccess(response));
         } catch (error) {
-            dispatch(lookupTvSeriesFailed(error));
+            if (axios.isAxiosError(error)) {
+                dispatch(lookupTvSeriesFailed(`Having problems previewing media details : ${error.message}`));
+            } else {
+                dispatch(lookupTvSeriesFailed("Having problems previewing media details :/"));
+            }
         }
     }
 }
