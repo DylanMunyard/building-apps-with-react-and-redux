@@ -26,10 +26,10 @@ module.exports = {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.API_URL": JSON.stringify("http://192.168.86.210:8080"),
+        "process.env.API_URL": JSON.stringify("http://localhost:3004"),
         "process.env.API_USERNAME": JSON.stringify("admin"),
         "process.env.API_PASSWORD": JSON.stringify("admin"),
-        "process.env.SONARR_API_URL": JSON.stringify("http://localhost:3001"),
+        "process.env.SONARR_API_URL": JSON.stringify("http://localhost:3004"),
         "process.env.SONARR_API_KEY": JSON.stringify("api_key")
       }),
       new HtmlWebpackPlugin({
