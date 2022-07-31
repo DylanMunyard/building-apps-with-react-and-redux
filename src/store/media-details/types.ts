@@ -1,4 +1,4 @@
-import { SeriesLookup } from "sonarr-api"
+import { SeriesLookup } from "../../api/sonarr"
 import { Action } from "redux"
 
 export interface MediaDetailsState extends ApiCall {
