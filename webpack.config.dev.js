@@ -8,15 +8,6 @@ process.env.NODE_ENV="development";
 module.exports = {
     entry: './src/index.tsx',
     devtool: 'inline-source-map',
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       plugins: [new TsconfigPathsPlugin()],
@@ -35,12 +26,15 @@ module.exports = {
     },
     plugins: [
       new webpack.DefinePlugin({
-      "process.env.API_URL": JSON.stringify("http://192.168.86.210:8080"),
-      "process.env.API_USERNAME": JSON.stringify("admin"),
-      "process.env.API_PASSWORD": JSON.stringify("admin")
+        "process.env.API_URL": JSON.stringify("http://localhost:3004"),
+        "process.env.API_USERNAME": JSON.stringify("admin"),
+        "process.env.API_PASSWORD": JSON.stringify("admin"),
+        "process.env.SONARR_API_URL": JSON.stringify("http://localhost:3004"),
+        "process.env.SONARR_API_KEY": JSON.stringify("api_key")
       }),
       new HtmlWebpackPlugin({
         template: "src/index.html",
+        publicPath: "/",
         favicon: "src/favicon.ico"
       })
     ],
@@ -54,6 +48,12 @@ module.exports = {
         {
           test: /(\.css)$/,
           use: ["style-loader", "css-loader"]
+        },
+        {
+          test: /\.png$/,
+          use: {
+            loader: 'url-loader'
+          }
         }
       ]
     }

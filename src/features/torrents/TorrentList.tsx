@@ -7,7 +7,7 @@ import * as torrentActions from "../../store/torrents/actions";
 import { TorrentState } from "../../store/torrents/types";
 import { DisplayBytes } from "api/helper";
 import { Link } from "react-router-dom";
-import Loading from "../common/Loading";
+import Loading from "../../components/loading";
 import { QBittorrentTorrentInfo } from "api/qbitorrent/types/QBittorrentTorrentsMethods";
 
 interface DispatchProps {
@@ -59,17 +59,6 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
         <div className="col">
             <h1>Torrents</h1>
 
-            <form className="d-flex" role="search">
-                <input 
-                    className="form-control me-2" 
-                    type="search" 
-                    value={filter} 
-                    placeholder="Filter" 
-                    aria-label="Filter" 
-                    onKeyDown={preventSubmit}
-                    onChange={changeFilter} />
-            </form>
-
             {error && 
                 <>
                     <div className="alert alert-danger" role="alert">
@@ -81,7 +70,18 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
             {loading && 
                 <Loading text="Loading torrents" />
             }
-            {num_torrents > 0 && 
+            {num_torrents > 0 && <>
+                <form className="d-flex" role="search">
+                    <input 
+                        className="form-control me-2" 
+                        type="search" 
+                        value={filter} 
+                        placeholder="Filter" 
+                        aria-label="Filter" 
+                        onKeyDown={preventSubmit}
+                        onChange={changeFilter} />
+                </form>
+
                 <table className="table table-condensed">
                 <thead>
                     <tr>
@@ -104,7 +104,7 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
                     })}
                 </tbody>
                 </table>
-            }
+            </>}
         </div>
     )
 }

@@ -11,15 +11,6 @@ module.exports = {
     mode: "production",
     entry: './src/index.tsx',
     devtool: 'source-map',
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       plugins: [new TsconfigPathsPlugin()],
@@ -43,13 +34,14 @@ module.exports = {
       
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-        "process.env.API_URL": JSON.stringify("http://localhost:3001"),
+        "process.env.API_URL": JSON.stringify("http://localhost:3004"),
         "process.env.API_USERNAME": JSON.stringify("admin"),
         "process.env.API_PASSWORD": JSON.stringify("password")
       }),
       new HtmlWebpackPlugin({
         template: "src/index.html",
         favicon: "src/favicon.ico",
+        publicPath: "/",
         minify: {
           // see https://github.com/kangax/html-minifier#options-quick-reference
           removeComments: true,
@@ -93,6 +85,12 @@ module.exports = {
   
             }
           ]
+        },
+        {
+          test: /\.png$/,
+          use: {
+            loader: 'url-loader'
+          }
         }
       ]
     }

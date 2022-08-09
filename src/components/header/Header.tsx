@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import HeaderIcon from "./header-icon.png";
+import HeaderIcon from "../../assets/header/header-icon.png";
 
 const Header: React.FC = () => {
     function navStyle({ isActive } : { isActive: boolean }) {

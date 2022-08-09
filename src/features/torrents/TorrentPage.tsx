@@ -7,7 +7,8 @@ import * as torrentActions from "../../store/torrents/actions";
 import { TorrentState } from "../../store/torrents/types";
 import { DisplayBytes } from "api/helper";
 import { useParams } from 'react-router-dom';
-import Loading from "../common/Loading";
+import Loading from "../../components/loading";
+import MediaDetails from "../../components/media-details";
 
 interface DispatchProps {
     sync: () => void
@@ -73,6 +74,7 @@ const TorrentPage : React.FC<AllProps> = ({ sync, num_torrents, loading, error, 
             <div className="mb-3">
                 Downloaded: {DisplayBytes(torrent.downloaded)}
             </div>
+            <MediaDetails mediaName={torrent.name} />
         </>}
     </div>);
 };
