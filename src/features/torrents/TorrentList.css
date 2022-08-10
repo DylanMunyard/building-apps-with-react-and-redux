@@ -1,0 +1,13 @@
+.torrent-list-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    height: calc(100vh - 160px);
+    min-height: 350px;
+    padding-top: 8px;
+}
+
+.rdg.fill-grid {
+    block-size: 100%;
+}

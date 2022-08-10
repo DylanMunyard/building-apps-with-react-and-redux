@@ -6,9 +6,12 @@ import { ApplicationState } from "../../store";
 import * as torrentActions from "../../store/torrents/actions";
 import { TorrentState } from "../../store/torrents/types";
 import { DisplayBytes } from "api/helper";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Loading from "../../components/loading";
 import { QBittorrentTorrentInfo } from "api/qbitorrent/types/QBittorrentTorrentsMethods";
+import DataGrid from "react-data-grid";
+import 'react-data-grid/dist/react-data-grid.css';
+import "./TorrentList.css";
 
 interface DispatchProps {
     sync: () => void
@@ -19,6 +22,15 @@ interface Props extends TorrentState {
 
 type AllProps = DispatchProps & Props;
 
+type TableCols = {
+    key: Partial<keyof QBittorrentTorrentInfo>,
+    name: string
+}
+
+type TableRows<QBittorrentTorrentInfo> = {
+    [Col in keyof QBittorrentTorrentInfo]?: unknown
+}
+
 const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, torrents}) => {
     useEffect(() => { 
         if (num_torrents === 0) {
@@ -26,8 +38,15 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
         } 
     }, []);
 
-    const [filteredTorrents, setFilteredTorrents] = useState(torrents);
+    const [filteredTorrents, setFilteredTorrents] = useState(toDataRows(torrents));
     const [filter, setFilter] = useState("");
+
+    const columns : TableCols[] = [
+        { key: "name", name: 'Name' },
+        { key: "size", name: 'Size' },
+        { key: "uploaded", name: 'Uploaded' },
+        { key: "downloaded", name: 'Downloaded' }
+    ];
 
     const changeFilter = ({ target }: ChangeEvent<HTMLInputElement>) => {
         setFilter(target.value);
@@ -36,7 +55,7 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
     useEffect(() => {
         const results : {[hash: string]: QBittorrentTorrentInfo} = {};
         if (!filter) {
-            setFilteredTorrents(torrents);
+            setFilteredTorrents(toDataRows(torrents));
             return;
         }
         
@@ -45,8 +64,26 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
                 results[torrent] = torrents[torrent];
             }
             });
-        setFilteredTorrents(results);
+        setFilteredTorrents(toDataRows(results));
     }, [torrents, filter]);
+
+    function toDataRows(rows: { [hash: string]: QBittorrentTorrentInfo }) : TableRows<QBittorrentTorrentInfo>[] {
+        const dataRows : TableRows<QBittorrentTorrentInfo>[] = [];
+
+        Object.keys(rows).sort((a: string, b: string) => {
+            return rows[a].name.localeCompare(rows[b].name);
+        }).forEach((hash) => {
+            const row = rows[hash];
+            dataRows.push({ 
+                "name": row.name,
+                "size": DisplayBytes(row.size),
+                "uploaded": DisplayBytes(row.uploaded),
+                "downloaded": DisplayBytes(row.downloaded)
+            });
+        });
+
+        return dataRows;
+    }
 
     function preventSubmit(event: KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
@@ -81,29 +118,10 @@ const TorrentList : React.FC<AllProps> = ({sync, num_torrents, loading, error, t
                         onKeyDown={preventSubmit}
                         onChange={changeFilter} />
                 </form>
-
-                <table className="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Uploaded</th>
-                        <th>Downloaded</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.keys(filteredTorrents).sort((a: string, b: string) => {
-                        return filteredTorrents[a].name.localeCompare(filteredTorrents[b].name);
-                    }).map((t: string) => {
-                        return <tr key={t}>
-                            <td><Link to={`/torrents/${t}`}>{filteredTorrents[t].name}</Link></td>
-                            <td>{DisplayBytes(filteredTorrents[t].size)}</td>
-                            <td>{DisplayBytes(filteredTorrents[t].uploaded)}</td>
-                            <td>{DisplayBytes(filteredTorrents[t].downloaded)}</td>
-                        </tr>
-                    })}
-                </tbody>
-                </table>
+                
+                <div className="torrent-list-container">
+                    <DataGrid className="fill-grid" columns={columns} rows={filteredTorrents}  />
+                </div>
             </>}
         </div>
     )
